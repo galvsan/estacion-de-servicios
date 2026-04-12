@@ -159,6 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
     osc.stop(audioCtx.currentTime + 0.5);
   };
 
+  const playPrintSound = () => {
+    // Removed audio context as requested, using vibration API
+    if (navigator.vibrate) {
+      // Pattern simulating thermal printer stepper motor
+      // 30ms vibrate, 70ms pause. Repeated for ~3 seconds
+      const pattern = [];
+      for (let i = 0; i < 30; i++) {
+        pattern.push(30);
+        pattern.push(70);
+      }
+      navigator.vibrate(pattern);
+    }
+  };
+
   // --- REFUELING LOGIC ---
   const priceValEl = document.getElementById('price-val');
   const paidValEl = document.getElementById('paid-val');
@@ -168,7 +182,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const triggerProgress = document.getElementById('trigger-progress');
   const prepayBtns = document.querySelectorAll('.prepay-btn');
   
-  const ticketArea = document.getElementById('ticket-area');
+  const finishBtn = document.getElementById('finish-btn');
+  const finishModal = document.getElementById('finish-modal');
+  const modalTotal = document.getElementById('modal-total');
+  const btnPrintTicket = document.getElementById('btn-print-ticket');
+  const ticketModal = document.getElementById('ticket-modal');
+  const printTicketArea = document.getElementById('print-ticket-area');
+  const btnCollectTicket = document.getElementById('btn-collect-ticket');
+  const ticketCloseContainer = document.getElementById('ticket-close-container');
 
   let currentPrice = 1.849;
   let prepayAmount = 100; // max limit
@@ -184,11 +205,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isRefueling) return; // Prevent change during pumping
       
       fuelTypeBtns.forEach(b => {
-        b.classList.remove('text-primary', 'border-primary', 'active');
-        b.classList.add('text-on-surface', 'border-on-surface', 'opacity-40');
+        b.classList.remove('bg-primary', 'text-white', 'active', 'shadow-md');
+        b.classList.add('bg-surface-container-highest', 'text-on-surface', 'opacity-70');
       });
-      e.target.classList.add('text-primary', 'border-primary', 'active');
-      e.target.classList.remove('text-on-surface', 'border-on-surface', 'opacity-40');
+      e.target.classList.add('bg-primary', 'text-white', 'active', 'shadow-md');
+      e.target.classList.remove('bg-surface-container-highest', 'text-on-surface', 'opacity-70');
       
       currentPrice = parseFloat(e.target.getAttribute('data-price'));
       selectedFuelType = e.target.innerText;
@@ -209,8 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
       prepayAmount = parseFloat(btn.getAttribute('data-amt'));
       
       // subtle visual feedback
-      prepayBtns.forEach(b => b.classList.remove('bg-surface-variant'));
-      btn.classList.add('bg-surface-variant');
+      prepayBtns.forEach(b => {
+         b.classList.remove('ring-2', 'ring-primary', 'ring-inset', 'text-primary', 'bg-primary/10');
+         b.classList.add('text-on-surface');
+      });
+      btn.classList.remove('text-on-surface');
+      btn.classList.add('ring-2', 'ring-primary', 'ring-inset', 'text-primary', 'bg-primary/10');
       
       // Reset values if requested a new prepay
       currentPaid = 0.0;
@@ -225,6 +250,30 @@ document.addEventListener('DOMContentLoaded', () => {
     pumpedValEl.textContent = currentPumped.toFixed(3);
   };
   
+  const showFinishModal = () => {
+      modalTotal.textContent = currentPaid.toFixed(2) + '€';
+      finishModal.classList.remove('hidden-view');
+  };
+
+  finishBtn.addEventListener('click', showFinishModal);
+
+  btnPrintTicket.addEventListener('click', () => {
+      finishModal.classList.add('hidden-view');
+      finishBtn.classList.add('hidden');
+      generateTicket();
+  });
+
+  finishModal.addEventListener('click', (e) => {
+      if (e.target === finishModal) {
+          finishModal.classList.add('hidden-view');
+          finishBtn.classList.add('hidden');
+          // Reset completely for the next customer
+          currentPaid = 0.0;
+          currentPumped = 0.0;
+          updateDisplay();
+      }
+  });
+  
   const generateTicket = () => {
       if (currentPaid <= 0) return;
       
@@ -232,22 +281,49 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('t-date').innerText = d.toLocaleDateString();
       document.getElementById('t-time').innerText = d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
       document.getElementById('t-type').innerText = selectedFuelType;
-      document.getElementById('t-liters').innerText = currentPumped.toFixed(3) + 'L';
+      document.getElementById('t-liters').innerText = currentPumped.toFixed(3) + ' L';
+      document.getElementById('t-price').innerText = currentPrice.toFixed(3) + ' €';
       document.getElementById('t-total').innerText = currentPaid.toFixed(2) + ' EUR';
       
-      ticketArea.classList.remove('translate-y-full');
-      ticketArea.classList.add('translate-y-4');
+      // Reset position and opacity
+      printTicketArea.style.transform = 'translateY(-100%)';
+      ticketCloseContainer.classList.add('opacity-0');
+      
+      // Show modal
+      ticketModal.classList.remove('hidden-view');
+      
+      // trigger sound
+      playPrintSound();
+      
+      // Trigger animation frame so transition applies correctly
+      requestAnimationFrame(() => {
+          setTimeout(() => {
+              // Slide down out of slot
+              printTicketArea.style.transform = 'translateY(10%)';
+              
+              // Show collect button afterwards
+              setTimeout(() => {
+                  ticketCloseContainer.classList.remove('opacity-0');
+              }, 3000); // Wait 3s (css transition is 3000ms)
+          }, 50);
+      });
   };
+
+  btnCollectTicket.addEventListener('click', () => {
+     ticketModal.classList.add('hidden-view');
+     // Reset completely for the next customer
+     currentPaid = 0.0;
+     currentPumped = 0.0;
+     updateDisplay();
+  });
   
-  const hideTicket = () => {
-      ticketArea.classList.add('translate-y-full');
-      ticketArea.classList.remove('translate-y-4');
-  };
+  const hideTicket = () => {};
 
   const startRefuel = () => {
     if (currentPaid >= prepayAmount) return;
     isRefueling = true;
     hideTicket();
+    finishBtn.classList.add('hidden');
     
     playFuelSound();
     
@@ -259,6 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPaid = prepayAmount;
         currentPumped = currentPaid / currentPrice;
         stopRefuel();
+        showFinishModal();
       } else {
         currentPaid += incrementEuros;
         currentPumped += incrementLiters;
@@ -279,9 +356,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     stopFuelSound();
     
-    // give ticket if dispensed anything
-    if (currentPaid > 0) {
-        setTimeout(generateTicket, 500);
+    if (currentPaid > 0 && currentPaid < prepayAmount) {
+        finishBtn.classList.remove('hidden');
     }
   };
 

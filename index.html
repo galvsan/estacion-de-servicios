@@ -103,108 +103,70 @@
     </nav>
   </header>
 
-  <main class="pt-24 pb-32 px-4 md:px-6 max-w-6xl mx-auto space-y-12">
+  <main class="pt-[72px] pb-[88px] px-2 md:px-6 max-w-6xl mx-auto space-y-8">
     
     <!-- FUEL VIEW -->
-    <section id="view-fuel" class="view-section grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <section id="view-fuel" class="view-section flex justify-center">
       
       <!-- REFUELING PANEL (The Pump) -->
-      <div class="lg:col-span-8 bg-surface-container-low rounded-xl p-6 md:p-8 flex flex-col gap-8">
-        <div class="flex justify-between items-start">
+      <div class="w-full max-w-[800px] bg-surface-container-low rounded-[32px] p-4 md:p-8 flex flex-col gap-6">
+        <div class="flex justify-between items-start px-2">
           <div>
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase mb-2">Repostaje</h2>
-            <p class="text-on-surface-variant font-medium text-sm md:text-base">Selecciona un tipo y mantén pulsado el gatillo.</p>
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase mb-1">Repostaje</h2>
+            <p class="text-on-surface-variant font-medium text-xs md:text-sm">Selecciona un tipo y mantén pulsado el gatillo.</p>
           </div>
-          <span class="text-4xl md:text-5xl">⛽</span>
+          <span class="text-4xl">⛽</span>
         </div>
 
         <!-- LCD Display -->
-        <div class="bg-black rounded-lg p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 border-4 border-surface-container-highest">
+        <div class="bg-black rounded-[24px] p-4 md:p-6 flex flex-wrap md:flex-nowrap gap-4 justify-between border-4 border-surface-container-highest overflow-hidden">
           <div class="flex flex-col gap-1">
-            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Pagado / EUR</span>
-            <div id="paid-val" class="text-5xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums">00.00</div>
+            <span class="text-gray-400 text-[10px] tracking-widest font-bold uppercase">EUR</span>
+            <div id="paid-val" class="text-4xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums leading-none">00.00</div>
           </div>
           <div class="flex flex-col gap-1">
-            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Surtido / Ltr</span>
-            <div id="pumped-val" class="text-5xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums">0.000</div>
+            <span class="text-gray-400 text-[10px] tracking-widest font-bold uppercase">Ltr</span>
+            <div id="pumped-val" class="text-4xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums leading-none">0.000</div>
           </div>
-          <div class="flex flex-col gap-1">
-            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Precio / Ltr</span>
-            <div id="price-val" class="text-3xl md:text-4xl font-light text-secondary-fixed/60 lcd-glow tabular-nums mt-1">1.849</div>
+          <div class="flex flex-col gap-1 md:text-right">
+            <span class="text-gray-400 text-[10px] tracking-widest font-bold uppercase">€/Ltr</span>
+            <div id="price-val" class="text-2xl md:text-4xl font-light text-secondary-fixed/60 lcd-glow tabular-nums leading-none mt-1">1.849</div>
           </div>
         </div>
 
         <!-- Control Interface -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
-          <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+          <div class="space-y-4 px-2">
             <!-- Grade Selector -->
-            <div class="space-y-3">
+            <div class="space-y-2">
               <span class="text-xs font-bold tracking-widest uppercase opacity-60">Tipo Combustible</span>
-              <div class="flex gap-3">
-                <button class="fuel-type-btn active text-primary border-primary flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.849">95</button>
-                <button class="fuel-type-btn text-on-surface border-on-surface opacity-40 flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.999">98</button>
-                <button class="fuel-type-btn text-on-surface border-on-surface opacity-40 flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.729">DSL</button>
+              <div class="flex gap-2">
+                <button class="fuel-type-btn active bg-primary text-white flex-1 py-3 rounded-[24px] font-black text-lg shadow-md active:scale-95 transition-all" data-price="1.849">95</button>
+                <button class="fuel-type-btn bg-surface-container-highest text-on-surface opacity-70 flex-1 py-3 rounded-[24px] font-black text-lg hover:opacity-100 active:scale-95 transition-all" data-price="1.999">98</button>
+                <button class="fuel-type-btn bg-surface-container-highest text-on-surface opacity-70 flex-1 py-3 rounded-[24px] font-black text-lg hover:opacity-100 active:scale-95 transition-all" data-price="1.729">DSL</button>
               </div>
             </div>
             <!-- Prepay -->
-            <div class="space-y-3">
+            <div class="space-y-2">
               <span class="text-xs font-bold tracking-widest uppercase opacity-60">Prepago Rápido</span>
-              <div class="flex gap-3">
-                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="10">10€</button>
-                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="20">20€</button>
-                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="50">50€</button>
-                <button class="prepay-btn flex-1 h-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold px-6" data-amt="100">LLENO</button>
+              <div class="flex gap-2">
+                <button class="prepay-btn h-12 w-14 flex items-center justify-center bg-surface-container-highest rounded-[16px] text-on-surface font-bold active:scale-95 transition-all" data-amt="10">10€</button>
+                <button class="prepay-btn h-12 w-14 flex items-center justify-center bg-surface-container-highest rounded-[16px] text-on-surface font-bold active:scale-95 transition-all" data-amt="20">20€</button>
+                <button class="prepay-btn h-12 w-14 flex items-center justify-center bg-surface-container-highest rounded-[16px] text-on-surface font-bold active:scale-95 transition-all" data-amt="50">50€</button>
+                <button class="prepay-btn flex-1 h-12 flex items-center justify-center bg-surface-container-highest rounded-[16px] text-on-surface font-bold px-2 active:scale-95 transition-all" data-amt="100">LLENO</button>
               </div>
             </div>
           </div>
           
-          <!-- Trigger Button -->
-          <div class="flex flex-col items-center gap-4">
-            <button id="trigger-btn" class="group relative w-full aspect-square md:aspect-auto md:h-48 bg-primary rounded-xl flex flex-col items-center justify-center gap-2 overflow-hidden hover:brightness-110 active:scale-95 transition-all shadow-[0_12px_24px_rgba(183,16,42,0.2)] touch-none select-none">
-              <span class="material-symbols-outlined text-white text-5xl group-active:animate-bounce">local_gas_station</span>
-              <span class="text-white font-black tracking-widest uppercase text-center px-4">Gatillo<br><small class="opacity-80">Mantener</small></span>
-              <div id="trigger-progress" class="absolute bottom-0 left-0 h-2 bg-white/30 w-full origin-left scale-x-0 transition-transform duration-100 ease-linear"></div>
+          <!-- Trigger & Finish -->
+          <div class="flex flex-col gap-3 px-2 md:px-0">
+            <button id="trigger-btn" class="group relative w-full py-4 md:py-6 bg-primary rounded-[24px] flex flex-col items-center justify-center gap-1 overflow-hidden hover:brightness-110 active:scale-95 shadow-[0_8px_16px_rgba(183,16,42,0.2)] touch-none select-none transition-transform">
+              <span class="material-symbols-outlined text-white text-4xl group-active:animate-none">local_gas_station</span>
+              <span class="text-white font-black tracking-widest uppercase text-center text-sm">Gatillo <span class="opacity-80 font-normal">(Mantener)</span></span>
+              <div id="trigger-progress" class="absolute bottom-0 left-0 h-1 bg-white/50 w-full origin-left scale-x-0 transition-transform duration-100 ease-linear"></div>
             </button>
+            <button id="finish-btn" class="w-full py-4 bg-surface-container-highest text-on-surface rounded-[24px] font-bold tracking-widest uppercase active:scale-95 transition-all hidden">Terminar Repostaje</button>
           </div>
-        </div>
-      </div>
-      
-      <!-- TICKET / STATUS -->
-      <div class="lg:col-span-4 flex flex-col gap-6">
-        <div class="bg-surface-container-lowest p-6 rounded-lg flex items-center gap-4 border-l-4 border-secondary">
-          <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
-            <span class="material-symbols-outlined">check_circle</span>
-          </div>
-          <div>
-            <div class="text-sm font-bold opacity-60">Estado Surtidor</div>
-            <div class="font-black uppercase tracking-tight">Preparado</div>
-          </div>
-        </div>
-        
-        <div class="bg-surface-container-high rounded-xl p-6 relative overflow-hidden h-64 flex-1">
-          <div class="flex justify-between items-center mb-4">
-            <span class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase">Última Transacción</span>
-            <span class="text-xl">🧾</span>
-          </div>
-          <!-- Thermal Ticket -->
-          <div id="ticket-area" class="absolute top-12 left-1/2 -translate-x-1/2 w-4/5 bg-white shadow-lg p-4 font-mono text-[10px] uppercase leading-tight transform translate-y-full hover:translate-y-4 transition-transform duration-500 cursor-pointer text-black">
-            <div class="border-b border-dashed border-slate-300 pb-2 mb-2 text-center">
-              <div class="font-bold text-sm">ESTACIÓN_ADRIÁN</div>
-              <div>Av. Principal 402</div>
-            </div>
-            <div class="space-y-1">
-              <div class="flex justify-between"><span>Fecha</span><span id="t-date">-</span></div>
-              <div class="flex justify-between"><span>Hora</span><span id="t-time">-</span></div>
-              <div class="flex justify-between"><span>Combustible</span><span id="t-type">95</span></div>
-              <div class="flex justify-between"><span>Litros</span><span id="t-liters">0.000L</span></div>
-              <div class="flex justify-between font-bold pt-2 border-t border-dashed border-slate-300">
-                <span>Total</span><span id="t-total">0.00 EUR</span>
-              </div>
-            </div>
-            <div class="mt-4 text-center text-[8px] text-slate-400 italic">Gracias por su visita</div>
-          </div>
-          <!-- The Slot -->
-          <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[85%] h-2 bg-on-surface rounded-full shadow-inner z-10"></div>
         </div>
       </div>
     </section>
@@ -250,6 +212,83 @@
     </section>
 
   </main>
+
+  <!-- Modal Fin Repostaje -->
+  <div id="finish-modal" class="fixed inset-0 z-[100] bg-black/60 hidden-view flex items-center justify-center px-4 backdrop-blur-sm">
+    <div class="bg-surface rounded-[48px] p-6 w-full max-w-sm flex flex-col items-center text-center gap-4">
+      <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-secondary mb-2">
+        <span class="material-symbols-outlined text-4xl">local_gas_station</span>
+      </div>
+      <h3 class="text-2xl font-black uppercase tracking-tight text-on-surface">¡Repostaje<br>Finalizado!</h3>
+      <p class="text-on-surface-variant text-sm font-medium">Puedes retirar la manguera e imprimir tu ticket.</p>
+      
+      <div class="w-full bg-surface-container rounded-[24px] p-4 my-2">
+        <div class="flex justify-between items-center text-sm font-bold opacity-60 uppercase mb-1"><span>Total pagado</span></div>
+        <div class="text-4xl font-black text-primary tabular-nums" id="modal-total" style="text-shadow: 0 2px 8px rgba(183,16,42,0.2);">0.00€</div>
+      </div>
+      
+      <button id="btn-print-ticket" class="w-full py-4 bg-primary text-white rounded-[32px] font-black tracking-widest uppercase active:scale-95 transition-all shadow-md mt-2 flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined">receipt_long</span> Imprimir Ticket
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal Impresión Ticket -->
+  <div id="ticket-modal" class="fixed inset-0 z-[110] bg-zinc-950 hidden-view flex flex-col items-center justify-start overflow-hidden">
+    <!-- Top shadow/slot to look like machine -->
+    <div class="relative w-full h-32 md:h-40 bg-zinc-900 shadow-[0_12px_32px_rgba(0,0,0,1)] z-20 flex flex-col items-center justify-end pb-4 border-b border-zinc-800">
+      <div class="w-[85%] md:w-[60%] lg:w-[40%] h-4 md:h-6 bg-black rounded-full border-b-2 border-zinc-700 shadow-inner"></div>
+      <div class="text-zinc-600 font-bold uppercase tracking-widest text-[10px] mt-6 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> IMPRESORA ESTADO OK</div>
+    </div>
+    
+    <!-- Ticket Sliding Panel -->
+    <div class="w-full h-full relative flex justify-center">
+       <div id="print-ticket-area" class="w-[85%] md:w-[50%] lg:w-[35%] bg-[#fdfbf7] shadow-2xl p-6 md:p-8 font-mono text-sm uppercase leading-tight text-black absolute top-0 -translate-y-full transition-transform duration-[3000ms] ease-linear rounded-b-sm">
+            <!-- serrated edge top -->
+            <div class="absolute top-0 left-0 w-full h-2 pointer-events-none" style="background-image: radial-gradient(circle at 10px 0, transparent 10px, #fdfbf7 10.5px); background-size: 20px 20px; background-position: -10px -10px; margin-top: -5px;"></div>
+            
+            <div class="border-b-2 border-dashed border-zinc-300 pb-4 mb-4 text-center mt-2 flex flex-col items-center">
+              <span class="material-symbols-outlined text-4xl mb-2">local_gas_station</span>
+              <div class="font-bold text-lg md:text-xl mb-1 leading-tight px-2">ESTACIÓN DE SERVICIOS ADRIÁN</div>
+              <div class="text-[11px] text-zinc-600">Av. Principal 402<br>Tlf: 555-123-456</div>
+            </div>
+            
+            <div class="space-y-3 mb-6 font-medium text-[13px]">
+              <div class="flex justify-between"><span>Fecha</span><span id="t-date">-</span></div>
+              <div class="flex justify-between"><span>Hora</span><span id="t-time">-</span></div>
+              <div class="flex justify-between"><span>Surtidor</span><span>04</span></div>
+              <div class="flex justify-between"><span>Combustible</span><span id="t-type">95</span></div>
+              <div class="flex justify-between"><span>Precio/L</span><span id="t-price">1.849 €</span></div>
+              <div class="flex justify-between pt-2"><span>Litros</span><span id="t-liters" class="font-bold">0.000 L</span></div>
+            </div>
+            
+            <div class="flex flex-col pt-4 border-t-[3px] border-zinc-800 border-dashed gap-1 mb-6">
+              <div class="flex justify-between font-black text-2xl">
+                <span>TOTAL</span><span id="t-total">0.00 EUR</span>
+              </div>
+              <div class="flex justify-between text-xs text-zinc-600 font-bold">
+                <span>IVA INCLUIDO</span><span>21%</span>
+              </div>
+            </div>
+            
+            <div class="text-center">
+               <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Cpath stroke='black' stroke-width='2' d='M5 10 h5 M15 10 h10 M30 10 h2 M35 10 h15 M55 10 h10 M70 10 h15 M90 10 h5 M5 20 h10 M20 20 h15 M40 20 h5 M50 20 h20 M75 20 h5 M85 20 h10'/%3E%3C/svg%3E" alt="Barcode" class="w-full h-12 opacity-80 mb-2 mix-blend-multiply">
+               <div class="text-[10px] text-zinc-500 font-bold mb-1">01720394830184</div>
+               <div class="text-[10px] text-zinc-500 font-black italic">! GRACIAS POR SU VISITA !</div>
+            </div>
+            
+            <!-- serrated edge bottom -->
+            <div class="absolute bottom-0 left-0 w-full h-3 pointer-events-none translate-y-full" style="background-image: radial-gradient(circle at 10px 10px, #fdfbf7 10px, transparent 10.5px); background-size: 20px 20px; background-position: -10px -20px;"></div>
+       </div>
+    </div>
+    
+    <!-- Collect Ticket -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 opacity-0 transition-opacity duration-700 delay-300" id="ticket-close-container">
+        <button id="btn-collect-ticket" class="py-4 px-8 bg-green-500 text-white rounded-[32px] font-black tracking-widest uppercase active:scale-95 transition-all shadow-[0_12px_24px_rgba(34,197,94,0.3)] flex items-center gap-3">
+          <span class="material-symbols-outlined animate-bounce">front_hand</span> Recoger Ticket
+        </button>
+    </div>
+  </div>
 
   <!-- BottomNavBar (Mobile Only) -->
   <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#f8f9fd]/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_-12px_24px_rgba(25,28,31,0.06)] rounded-t-[32px]">
