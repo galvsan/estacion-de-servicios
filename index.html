@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Estación de Servicio Adrián | PWA</title>
+  <link rel="manifest" href="./manifest.json" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#ffffff",
+            "surface-tint": "#bb152c",
+            "on-surface-variant": "#5b403f",
+            "on-secondary": "#ffffff",
+            "on-background": "#191c1f",
+            "background": "#f8f9fd",
+            "inverse-on-surface": "#f0f0f5",
+            "surface-bright": "#f8f9fd",
+            "on-primary": "#ffffff",
+            "secondary-fixed-dim": "#00e639",
+            "on-error": "#ffffff",
+            "on-tertiary-container": "#fffbff",
+            "surface-container-low": "#f3f3f7",
+            "error": "#ba1a1a",
+            "surface-container-highest": "#e1e2e6",
+            "outline-variant": "#e4bebc",
+            "inverse-primary": "#ffb3b1",
+            "on-surface": "#191c1f",
+            "primary-fixed-dim": "#ffb3b1",
+            "surface-container-high": "#e7e8ec",
+            "on-primary-fixed-variant": "#92001c",
+            "inverse-surface": "#2e3134",
+            "outline": "#8f6f6e",
+            "on-secondary-container": "#006d16",
+            "on-secondary-fixed": "#002203",
+            "on-primary-container": "#fffbff",
+            "on-primary-fixed": "#410007",
+            "secondary-fixed": "#72ff70",
+            "tertiary-fixed-dim": "#f8bd2a",
+            "primary-fixed": "#ffdad8",
+            "tertiary": "#765700",
+            "secondary": "#006e16",
+            "primary-container": "#db313f",
+            "surface-dim": "#d9dade",
+            "secondary-container": "#00f93f",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#b7102a",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed-variant": "#5c4300",
+            "on-secondary-fixed-variant": "#00530e",
+            "tertiary-fixed": "#ffdfa0",
+            "on-tertiary-fixed": "#261a00",
+            "surface-container": "#edeef2",
+            "tertiary-container": "#956e00",
+            "surface-variant": "#e1e2e6",
+            "surface": "#f8f9fd"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "headline": ["Space Grotesk"],
+            "body": ["Space Grotesk"],
+            "label": ["Space Grotesk"]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body { font-family: 'Space Grotesk', sans-serif; min-height: max(884px, 100dvh); }
+    .lcd-glow { text-shadow: 0 0 8px rgba(114, 255, 112, 0.6); }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    ::-webkit-scrollbar { display: none; }
+    
+    .hidden-view { display: none !important; }
+    .nav-active { opacity: 1 !important; color: #b7102a !important; font-weight: 800 !important; }
+  </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-white">
+
+  <!-- TopAppBar -->
+  <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 md:px-8 py-4 md:py-6 bg-slate-100 dark:bg-slate-800 transition shadow-sm">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-[#b7102a] dark:text-red-500">local_gas_station</span>
+      <h1 class="text-xl md:text-2xl font-black text-[#b7102a] tracking-widest font-['Space_Grotesk'] uppercase leading-none">
+        ESTACIÓN_ADRIÁN
+      </h1>
+    </div>
+    <nav class="hidden md:flex gap-8">
+      <button class="nav-btn nav-active tracking-widest font-['Space_Grotesk'] uppercase text-sm" data-target="view-fuel">Combustible</button>
+      <button class="nav-btn text-[#191c1f] font-bold tracking-widest font-['Space_Grotesk'] uppercase text-sm hover:opacity-80 transition-opacity" data-target="view-air">Aire</button>
+    </nav>
+  </header>
+
+  <main class="pt-24 pb-32 px-4 md:px-6 max-w-6xl mx-auto space-y-12">
+    
+    <!-- FUEL VIEW -->
+    <section id="view-fuel" class="view-section grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- REFUELING PANEL (The Pump) -->
+      <div class="lg:col-span-8 bg-surface-container-low rounded-xl p-6 md:p-8 flex flex-col gap-8">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase mb-2">Repostaje</h2>
+            <p class="text-on-surface-variant font-medium text-sm md:text-base">Selecciona un tipo y mantén pulsado el gatillo.</p>
+          </div>
+          <span class="text-4xl md:text-5xl">⛽</span>
+        </div>
+
+        <!-- LCD Display -->
+        <div class="bg-black rounded-lg p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 border-4 border-surface-container-highest">
+          <div class="flex flex-col gap-1">
+            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Pagado / EUR</span>
+            <div id="paid-val" class="text-5xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums">00.00</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Surtido / Ltr</span>
+            <div id="pumped-val" class="text-5xl md:text-6xl font-light text-secondary-fixed lcd-glow tabular-nums">0.000</div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <span class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase">Precio / Ltr</span>
+            <div id="price-val" class="text-3xl md:text-4xl font-light text-secondary-fixed/60 lcd-glow tabular-nums mt-1">1.849</div>
+          </div>
+        </div>
+
+        <!-- Control Interface -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+          <div class="space-y-6">
+            <!-- Grade Selector -->
+            <div class="space-y-3">
+              <span class="text-xs font-bold tracking-widest uppercase opacity-60">Tipo Combustible</span>
+              <div class="flex gap-3">
+                <button class="fuel-type-btn active text-primary border-primary flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.849">95</button>
+                <button class="fuel-type-btn text-on-surface border-on-surface opacity-40 flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.999">98</button>
+                <button class="fuel-type-btn text-on-surface border-on-surface opacity-40 flex-1 py-4 bg-surface-container-lowest rounded-lg border-2 font-black text-xl hover:scale-95 transition-transform active:scale-90" data-price="1.729">DSL</button>
+              </div>
+            </div>
+            <!-- Prepay -->
+            <div class="space-y-3">
+              <span class="text-xs font-bold tracking-widest uppercase opacity-60">Prepago Rápido</span>
+              <div class="flex gap-3">
+                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="10">10€</button>
+                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="20">20€</button>
+                <button class="prepay-btn h-14 w-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold hover:bg-surface-container transition-colors" data-amt="50">50€</button>
+                <button class="prepay-btn flex-1 h-14 flex items-center justify-center bg-surface-container-highest rounded-full text-on-surface font-bold px-6" data-amt="100">LLENO</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Trigger Button -->
+          <div class="flex flex-col items-center gap-4">
+            <button id="trigger-btn" class="group relative w-full aspect-square md:aspect-auto md:h-48 bg-primary rounded-xl flex flex-col items-center justify-center gap-2 overflow-hidden hover:brightness-110 active:scale-95 transition-all shadow-[0_12px_24px_rgba(183,16,42,0.2)] touch-none select-none">
+              <span class="material-symbols-outlined text-white text-5xl group-active:animate-bounce">local_gas_station</span>
+              <span class="text-white font-black tracking-widest uppercase text-center px-4">Gatillo<br><small class="opacity-80">Mantener</small></span>
+              <div id="trigger-progress" class="absolute bottom-0 left-0 h-2 bg-white/30 w-full origin-left scale-x-0 transition-transform duration-100 ease-linear"></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TICKET / STATUS -->
+      <div class="lg:col-span-4 flex flex-col gap-6">
+        <div class="bg-surface-container-lowest p-6 rounded-lg flex items-center gap-4 border-l-4 border-secondary">
+          <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined">check_circle</span>
+          </div>
+          <div>
+            <div class="text-sm font-bold opacity-60">Estado Surtidor</div>
+            <div class="font-black uppercase tracking-tight">Preparado</div>
+          </div>
+        </div>
+        
+        <div class="bg-surface-container-high rounded-xl p-6 relative overflow-hidden h-64 flex-1">
+          <div class="flex justify-between items-center mb-4">
+            <span class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase">Última Transacción</span>
+            <span class="text-xl">🧾</span>
+          </div>
+          <!-- Thermal Ticket -->
+          <div id="ticket-area" class="absolute top-12 left-1/2 -translate-x-1/2 w-4/5 bg-white shadow-lg p-4 font-mono text-[10px] uppercase leading-tight transform translate-y-full hover:translate-y-4 transition-transform duration-500 cursor-pointer text-black">
+            <div class="border-b border-dashed border-slate-300 pb-2 mb-2 text-center">
+              <div class="font-bold text-sm">ESTACIÓN_ADRIÁN</div>
+              <div>Av. Principal 402</div>
+            </div>
+            <div class="space-y-1">
+              <div class="flex justify-between"><span>Fecha</span><span id="t-date">-</span></div>
+              <div class="flex justify-between"><span>Hora</span><span id="t-time">-</span></div>
+              <div class="flex justify-between"><span>Combustible</span><span id="t-type">95</span></div>
+              <div class="flex justify-between"><span>Litros</span><span id="t-liters">0.000L</span></div>
+              <div class="flex justify-between font-bold pt-2 border-t border-dashed border-slate-300">
+                <span>Total</span><span id="t-total">0.00 EUR</span>
+              </div>
+            </div>
+            <div class="mt-4 text-center text-[8px] text-slate-400 italic">Gracias por su visita</div>
+          </div>
+          <!-- The Slot -->
+          <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[85%] h-2 bg-on-surface rounded-full shadow-inner z-10"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AIR VIEW -->
+    <section id="view-air" class="view-section hidden-view flex flex-col items-center">
+      <div class="bg-surface-container-low rounded-xl p-8 max-w-lg w-full flex flex-col items-center gap-8 border-t-8 border-primary">
+        <div class="w-full flex justify-between items-center">
+          <h2 class="text-2xl font-extrabold tracking-tighter uppercase">Inflado de Ruedas</h2>
+          <span class="text-4xl">💨</span>
+        </div>
+        
+        <!-- Manometer -->
+        <div class="relative w-64 h-64 rounded-full border-[16px] border-surface-container-highest bg-surface-container-lowest flex items-center justify-center shadow-inner">
+          <div id="air-needle" class="absolute inset-0 transition-transform duration-300 ease-out" style="transform: rotate(-90deg);">
+            <div class="absolute top-6 left-1/2 -translate-x-1/2 w-1.5 h-24 bg-primary rounded-full origin-bottom"></div>
+          </div>
+          <div class="flex flex-col items-center bg-surface-container-lowest rounded-full p-4 z-10 w-32 h-32 justify-center shadow-sm">
+            <span id="pressure-val" class="text-5xl font-black tabular-nums">2.5</span>
+            <span class="text-[12px] font-bold tracking-widest text-primary uppercase mt-1">Bar Target</span>
+          </div>
+        </div>
+
+        <div class="w-full bg-black rounded-lg p-4 flex justify-between items-center border-[3px] border-surface-container-highest">
+           <div class="text-on-tertiary-fixed-variant text-[10px] tracking-[0.2em] font-bold uppercase text-white">Actual: <span id="current-pressure-val" class="text-secondary-fixed text-xl align-middle ml-2 lcd-glow">0.0</span> BAR</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="w-full flex flex-col gap-6">
+          <div class="flex justify-center items-center gap-12">
+            <button id="btn-minus" class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center hover:scale-110 active:scale-90 transition-transform shadow-md">
+              <span class="material-symbols-outlined text-3xl">remove</span>
+            </button>
+            <button id="btn-plus" class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center hover:scale-110 active:scale-90 transition-transform shadow-md">
+              <span class="material-symbols-outlined text-3xl">add</span>
+            </button>
+          </div>
+          <button id="btn-inflate" class="w-full py-5 bg-secondary text-white text-xl font-black rounded-xl tracking-widest uppercase hover:brightness-110 active:scale-95 transition-all shadow-lg flex items-center justify-center gap-3">
+             <span class="material-symbols-outlined">air</span> Iniciar Inflado
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BottomNavBar (Mobile Only) -->
+  <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#f8f9fd]/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_-12px_24px_rgba(25,28,31,0.06)] rounded-t-[32px]">
+    <button class="nav-btn nav-active flex flex-col items-center justify-center text-[#191c1f] dark:text-slate-400 opacity-40 hover:opacity-100 transition-all px-4" data-target="view-fuel">
+      <span class="material-symbols-outlined">local_gas_station</span>
+      <span class="font-['Space_Grotesk'] text-[10px] uppercase font-bold tracking-widest mt-1">Surtidor</span>
+    </button>
+    <button class="nav-btn flex flex-col items-center justify-center text-[#191c1f] dark:text-slate-400 opacity-40 hover:opacity-100 transition-all px-4" data-target="view-air">
+      <span class="material-symbols-outlined">air</span>
+      <span class="font-['Space_Grotesk'] text-[10px] uppercase font-bold tracking-widest mt-1">Aire</span>
+    </button>
+  </nav>
+
+  <script src="./app.js"></script>
+</body>
+</html>
