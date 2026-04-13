@@ -367,7 +367,10 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerProgress.style.transform = 'scaleX(0)';
     
     stopFuelSound();
-    if (navigator.vibrate) navigator.vibrate(0);
+    if (navigator.vibrate) {
+        navigator.vibrate(0);
+        navigator.vibrate([]); // Fallback para algunos motores chromium en móviles
+    }
     
     if (currentPaid > 0 && currentPaid < prepayAmount) {
         finishBtn.classList.remove('hidden');
@@ -375,11 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   triggerBtn.addEventListener('mousedown', startRefuel);
-  triggerBtn.addEventListener('mouseup', stopRefuel);
+  triggerBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startRefuel(); }, {passive: false});
   triggerBtn.addEventListener('mouseleave', stopRefuel);
-  triggerBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startRefuel(); });
-  triggerBtn.addEventListener('touchend', (e) => { e.preventDefault(); stopRefuel(); });
-  triggerBtn.addEventListener('touchcancel', (e) => { e.preventDefault(); stopRefuel(); });
+
+  window.addEventListener('mouseup', stopRefuel);
+  window.addEventListener('touchend', stopRefuel);
+  window.addEventListener('touchcancel', stopRefuel);
 
   // --- AIR PRESSURE LOGIC ---
   const targetValEl = document.getElementById('pressure-val');
