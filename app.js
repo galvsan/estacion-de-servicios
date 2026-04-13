@@ -323,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const startRefuel = () => {
     if (currentPaid >= prepayAmount) return;
+    if (isRefueling) return;
     isRefueling = true;
     hideTicket();
     finishBtn.classList.add('hidden');
@@ -359,8 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const stopRefuel = () => {
+    if (!isRefueling) return;
     isRefueling = false;
     clearInterval(refuelInterval);
+    refuelInterval = null;
     triggerProgress.style.transform = 'scaleX(0)';
     
     stopFuelSound();

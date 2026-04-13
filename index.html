@@ -103,20 +103,13 @@
     </nav>
   </header>
 
-  <main class="pt-[72px] pb-[88px] px-2 md:px-6 max-w-6xl mx-auto space-y-8">
+  <main class="pt-[72px] pb-[72px] px-2 md:px-6 max-w-6xl mx-auto space-y-8">
     
     <!-- FUEL VIEW -->
     <section id="view-fuel" class="view-section flex justify-center">
       
       <!-- REFUELING PANEL (The Pump) -->
       <div class="w-full max-w-[800px] bg-surface-container-low rounded-[32px] p-4 md:p-8 flex flex-col gap-6">
-        <div class="flex justify-between items-start px-2">
-          <div>
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter uppercase mb-1">Repostaje</h2>
-            <p class="text-on-surface-variant font-medium text-xs md:text-sm">Selecciona un tipo y mantén pulsado el gatillo.</p>
-          </div>
-          <span class="text-4xl">⛽</span>
-        </div>
 
         <!-- LCD Display -->
         <div class="bg-black rounded-[24px] p-4 md:p-6 flex flex-wrap md:flex-nowrap gap-4 justify-between border-4 border-surface-container-highest overflow-hidden">
@@ -174,10 +167,6 @@
     <!-- AIR VIEW -->
     <section id="view-air" class="view-section hidden-view flex flex-col items-center">
       <div class="bg-surface-container-low rounded-xl p-8 max-w-lg w-full flex flex-col items-center gap-8 border-t-8 border-primary">
-        <div class="w-full flex justify-between items-center">
-          <h2 class="text-2xl font-extrabold tracking-tighter uppercase">Inflado de Ruedas</h2>
-          <span class="text-4xl">💨</span>
-        </div>
         
         <!-- Manometer -->
         <div class="relative w-64 h-64 rounded-full border-[16px] border-surface-container-highest bg-surface-container-lowest flex items-center justify-center shadow-inner">
@@ -291,7 +280,7 @@
   </div>
 
   <!-- BottomNavBar (Mobile Only) -->
-  <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-[#f8f9fd]/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_-12px_24px_rgba(25,28,31,0.06)] rounded-t-[32px]">
+  <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-[#f8f9fd]/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-[0_-12px_24px_rgba(25,28,31,0.06)] rounded-t-[20px]">
     <button class="nav-btn nav-active flex flex-col items-center justify-center text-[#191c1f] dark:text-slate-400 opacity-40 hover:opacity-100 transition-all px-4" data-target="view-fuel">
       <span class="material-symbols-outlined">local_gas_station</span>
       <span class="font-['Space_Grotesk'] text-[10px] uppercase font-bold tracking-widest mt-1">Surtidor</span>
