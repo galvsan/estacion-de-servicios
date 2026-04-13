@@ -225,45 +225,45 @@
   <!-- Modal Impresión Ticket -->
   <div id="ticket-modal" class="fixed inset-0 z-[110] bg-zinc-950 hidden-view flex flex-col items-center justify-start overflow-hidden">
     <!-- Top shadow/slot to look like machine -->
-    <div class="relative w-full h-32 md:h-40 bg-zinc-900 shadow-[0_12px_32px_rgba(0,0,0,1)] z-20 flex flex-col items-center justify-end pb-4 border-b border-zinc-800">
-      <div class="w-[85%] md:w-[60%] lg:w-[40%] h-4 md:h-6 bg-black rounded-full border-b-2 border-zinc-700 shadow-inner"></div>
-      <div class="text-zinc-600 font-bold uppercase tracking-widest text-[10px] mt-6 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> IMPRESORA ESTADO OK</div>
+    <div class="relative w-full h-20 md:h-24 bg-zinc-900 shadow-[0_12px_32px_rgba(0,0,0,1)] z-20 flex flex-col items-center justify-end pb-2 border-b border-zinc-800">
+      <div class="w-[85%] md:w-[60%] lg:w-[40%] h-3 md:h-4 bg-black rounded-full border-b-2 border-zinc-700 shadow-inner"></div>
+      <div class="text-zinc-600 font-bold uppercase tracking-widest text-[10px] mt-3 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span> OK</div>
     </div>
     
     <!-- Ticket Sliding Panel -->
     <div class="w-full h-full relative flex justify-center">
-       <div id="print-ticket-area" class="w-[85%] md:w-[50%] lg:w-[35%] bg-[#fdfbf7] shadow-2xl p-6 md:p-8 font-mono text-sm uppercase leading-tight text-black absolute top-0 -translate-y-full transition-transform duration-[3000ms] ease-linear rounded-b-sm">
+       <div id="print-ticket-area" class="w-[85%] md:w-[50%] lg:w-[35%] bg-[#fdfbf7] shadow-2xl p-4 md:p-6 font-mono text-[11px] md:text-sm uppercase leading-tight text-black absolute top-0 -translate-y-full transition-transform duration-[3000ms] ease-linear rounded-b-sm">
             <!-- serrated edge top -->
             <div class="absolute top-0 left-0 w-full h-2 pointer-events-none" style="background-image: radial-gradient(circle at 10px 0, transparent 10px, #fdfbf7 10.5px); background-size: 20px 20px; background-position: -10px -10px; margin-top: -5px;"></div>
             
-            <div class="border-b-2 border-dashed border-zinc-300 pb-4 mb-4 text-center mt-2 flex flex-col items-center">
-              <span class="material-symbols-outlined text-4xl mb-2">local_gas_station</span>
-              <div class="font-bold text-lg md:text-xl mb-1 leading-tight px-2">ESTACIÓN DE SERVICIOS ADRIÁN</div>
-              <div class="text-[11px] text-zinc-600">Av. Principal 402<br>Tlf: 555-123-456</div>
+            <div class="border-b-2 border-dashed border-zinc-300 pb-2 mb-2 text-center mt-1 flex flex-col items-center">
+              <span class="material-symbols-outlined text-3xl mb-1">local_gas_station</span>
+              <div class="font-bold text-sm md:text-base mb-1 leading-tight px-2">ESTACIÓN DE SERVICIOS ADRIÁN</div>
+              <div class="text-[10px] text-zinc-600">Av. Principal 402<br>Tlf: 555-123-456</div>
             </div>
             
-            <div class="space-y-3 mb-6 font-medium text-[13px]">
+            <div class="space-y-1 mb-3 font-medium">
               <div class="flex justify-between"><span>Fecha</span><span id="t-date">-</span></div>
               <div class="flex justify-between"><span>Hora</span><span id="t-time">-</span></div>
               <div class="flex justify-between"><span>Surtidor</span><span>04</span></div>
               <div class="flex justify-between"><span>Combustible</span><span id="t-type">95</span></div>
               <div class="flex justify-between"><span>Precio/L</span><span id="t-price">1.849 €</span></div>
-              <div class="flex justify-between pt-2"><span>Litros</span><span id="t-liters" class="font-bold">0.000 L</span></div>
+              <div class="flex justify-between pt-1"><span>Litros</span><span id="t-liters" class="font-bold">0.000 L</span></div>
             </div>
             
-            <div class="flex flex-col pt-4 border-t-[3px] border-zinc-800 border-dashed gap-1 mb-6">
-              <div class="flex justify-between font-black text-2xl">
+            <div class="flex flex-col pt-2 border-t-[3px] border-zinc-800 border-dashed gap-1 mb-3">
+              <div class="flex justify-between font-black text-lg">
                 <span>TOTAL</span><span id="t-total">0.00 EUR</span>
               </div>
-              <div class="flex justify-between text-xs text-zinc-600 font-bold">
+              <div class="flex justify-between text-[10px] text-zinc-600 font-bold">
                 <span>IVA INCLUIDO</span><span>21%</span>
               </div>
             </div>
             
             <div class="text-center">
-               <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Cpath stroke='black' stroke-width='2' d='M5 10 h5 M15 10 h10 M30 10 h2 M35 10 h15 M55 10 h10 M70 10 h15 M90 10 h5 M5 20 h10 M20 20 h15 M40 20 h5 M50 20 h20 M75 20 h5 M85 20 h10'/%3E%3C/svg%3E" alt="Barcode" class="w-full h-12 opacity-80 mb-2 mix-blend-multiply">
-               <div class="text-[10px] text-zinc-500 font-bold mb-1">01720394830184</div>
-               <div class="text-[10px] text-zinc-500 font-black italic">! GRACIAS POR SU VISITA !</div>
+               <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40'%3E%3Cpath stroke='black' stroke-width='2' d='M5 10 h5 M15 10 h10 M30 10 h2 M35 10 h15 M55 10 h10 M70 10 h15 M90 10 h5 M5 20 h10 M20 20 h15 M40 20 h5 M50 20 h20 M75 20 h5 M85 20 h10'/%3E%3C/svg%3E" alt="Barcode" class="w-full h-8 opacity-80 mb-1 mix-blend-multiply">
+               <div class="text-[9px] text-zinc-500 font-bold mb-1">01720394830184</div>
+               <div class="text-[9px] text-zinc-500 font-black italic">! GRACIAS POR SU VISITA !</div>
             </div>
             
             <!-- serrated edge bottom -->
