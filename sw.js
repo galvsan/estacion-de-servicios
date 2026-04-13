@@ -1,8 +1,9 @@
-const CACHE_NAME = 'estacion-adrian-v1';
+const CACHE_NAME = 'estacion-adrian-v2';
 const ASSETS_TO_CACHE = [
   './index.html',
   './app.js',
   './manifest.json',
+  './icon.svg',
   'https://cdn.tailwindcss.com?plugins=forms,container-queries',
   'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap',
   'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap'

@@ -319,6 +319,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const hideTicket = () => {};
 
+  let refuelStartTime = 0;
+
   const startRefuel = () => {
     if (currentPaid >= prepayAmount) return;
     isRefueling = true;
@@ -326,8 +328,15 @@ document.addEventListener('DOMContentLoaded', () => {
     finishBtn.classList.add('hidden');
     
     playFuelSound();
+    if (navigator.vibrate) navigator.vibrate(10000);
+    refuelStartTime = Date.now();
     
     refuelInterval = setInterval(() => {
+      if (Date.now() - refuelStartTime > 8000) {
+         if (navigator.vibrate) navigator.vibrate(10000);
+         refuelStartTime = Date.now();
+      }
+
       const incrementLiters = 0.15; // fast pumping
       const incrementEuros = incrementLiters * currentPrice;
       
@@ -355,6 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     triggerProgress.style.transform = 'scaleX(0)';
     
     stopFuelSound();
+    if (navigator.vibrate) navigator.vibrate(0);
     
     if (currentPaid > 0 && currentPaid < prepayAmount) {
         finishBtn.classList.remove('hidden');
